@@ -1,4 +1,5 @@
 import graphene
+import graphql_jwt
 from django.urls import reverse
 from django.utils.functional import SimpleLazyObject
 # from graphql import (
@@ -79,7 +80,7 @@ class Query(
     pass
 
 
-# class Mutation(
+class Mutation(
 #     # AccountMutations,
 #     # AppMutations,
 #     # AttributeMutations,
@@ -104,7 +105,10 @@ class Query(
 #     # TaxMutations,
 #     # WarehouseMutations,
 #     # WebhookMutations,
-# ):
+ ):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 #     pass
 
 

@@ -17,6 +17,7 @@ class ProductType(DjangoObjectType):
 
 class ProductQueries(graphene.ObjectType):
     all_products = graphene.List(ProductType)
+    product = graphene.Field(ProductType)
 
     def resolve_all_products(self, info, **kwargs):
         return Product.objects.all()
