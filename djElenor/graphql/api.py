@@ -16,7 +16,7 @@ from django.utils.functional import SimpleLazyObject
 
 # from ..core.utils.cache import CacheDict
 # from ..graphql.notifications.schema import ExternalNotificationMutations
-# from .account.schema import AccountMutations, AccountQueries
+from ..account.schema import AccountMutations, AccountQueries
 # from .app.schema import AppMutations, AppQueries
 # from .attribute.schema import AttributeMutations, AttributeQueries
 # from .channel.schema import ChannelMutations, ChannelQueries
@@ -54,7 +54,7 @@ API_PATH = SimpleLazyObject(lambda: reverse("api"))
 
 
 class Query(
-    # AccountQueries,
+    AccountQueries,
     # AppQueries,
     # AttributeQueries,
     # ChannelQueries,
@@ -81,7 +81,7 @@ class Query(
 
 
 class Mutation(
-#     # AccountMutations,
+     AccountMutations,
 #     # AppMutations,
 #     # AttributeMutations,
 #     # ChannelMutations,
@@ -114,7 +114,7 @@ class Mutation(
 
 schema = graphene.Schema(
     query=Query,
-    # mutation=mutation,
+    mutation=Mutation,
     # types=list(types) + [_Any, _Entity, _Service],
     # subscription=subscription,
     # directives=directives,
