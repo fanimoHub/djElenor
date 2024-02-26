@@ -2,11 +2,8 @@ import graphene
 from graphene_django import DjangoObjectType
 from .models import (
     Category,
-    SubCategory,
     Product,
-    ProductImage,
-    Rating,
-    Comment,
+
 )
 
 

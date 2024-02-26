@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, re_path
 from django.views.decorators.csrf import csrf_exempt
-from .graphql.api import schema
 from graphene_django.views import GraphQLView
 
 urlpatterns = [

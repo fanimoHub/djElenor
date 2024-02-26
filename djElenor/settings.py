@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,15 +36,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # Local
     'djElenor.account',
+    'djElenor.app',
     'djElenor.cart',
+    'djElenor.channel',
     'djElenor.checkout',
+    'djElenor.discount',
     'djElenor.order',
     'djElenor.payment',
     'djElenor.product',
-    'djElenor.warehouse',
+    'djElenor.giftcard',
     'djElenor.graphql',
+    'djElenor.core',
+    'djElenor.page',
+    'djElenor.seo',
+    'djElenor.shipping',
+    'djElenor.tax',
+    'djElenor.attribute',
+    "djElenor.permission",
+    'djElenor.thumbnail',
+    'djElenor.warehouse',
+    'djElenor.webhook',
+
     # Third party
     'graphene_django',
 ]
@@ -143,3 +158,20 @@ GRAPHENE = {
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
+
+AUTH_USER_MODEL = "account.User"
+
+
+DEFAULT_COUNTRY = os.environ.get("DEFAULT_COUNTRY", "US")
+DEFAULT_DECIMAL_PLACES = 3
+DEFAULT_MAX_DIGITS = 12
+DEFAULT_CURRENCY_CODE_LENGTH = 3
+
+# The default max length for the display name of the
+# sender email address.
+# Following the recommendation of https://tools.ietf.org/html/rfc5322#section-2.1.1
+DEFAULT_MAX_EMAIL_DISPLAY_NAME_LENGTH = 78
+
+COUNTRIES_OVERRIDE = {"EU": "European Union"}
+
+MAX_USER_ADDRESSES = int(os.environ.get("MAX_USER_ADDRESSES", 100))

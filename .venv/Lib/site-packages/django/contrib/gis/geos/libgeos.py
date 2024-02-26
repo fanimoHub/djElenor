@@ -6,7 +6,6 @@
  This module also houses GEOS Pointer utilities, including
  get_pointer_arr(), and GEOM_PTR.
 """
-
 import logging
 import os
 from ctypes import CDLL, CFUNCTYPE, POINTER, Structure, c_char_p

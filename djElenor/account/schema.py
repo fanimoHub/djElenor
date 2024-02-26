@@ -1,7 +1,6 @@
-# from django.contrib.auth import get_user_model
 from .models import User
 import graphene
-# from graphene import relay, ObjectType
+#
 from graphene_django import DjangoObjectType
 
 
@@ -13,6 +12,13 @@ class UserType(DjangoObjectType):
 # ...code
 class AccountQueries(graphene.ObjectType):
     users = graphene.List(UserType)
+    viewer = graphene.Field(UserType)
+
+    def resolve_viewer(self, info, **kwargs):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("Authentication credentials were not provided !!!!!")
+        return user
 
     def resolve_users(self, info):
         return User.objects.all()

@@ -41,9 +41,7 @@ class BlockContext:
 
 class BlockNode(Node):
     def __init__(self, name, nodelist, parent=None):
-        self.name = name
-        self.nodelist = nodelist
-        self.parent = parent
+        self.name, self.nodelist, self.parent = name, nodelist, parent
 
     def __repr__(self):
         return "<Block Node: %s. Contents: %r>" % (self.name, self.nodelist)

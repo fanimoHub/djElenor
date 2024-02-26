@@ -215,7 +215,8 @@ class User(
         related_query_name="user",
     )
 
-    USERNAME_FIELD = "email"
+    # USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
 
     objects = UserManager()
 

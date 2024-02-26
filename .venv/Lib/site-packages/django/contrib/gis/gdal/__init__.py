@@ -25,7 +25,6 @@
  by setting `GDAL_LIBRARY_PATH` in your settings with the path to the GDAL C
  library on your system.
 """
-
 from django.contrib.gis.gdal.datasource import DataSource
 from django.contrib.gis.gdal.driver import Driver
 from django.contrib.gis.gdal.envelope import Envelope
