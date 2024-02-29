@@ -38,27 +38,33 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # Local
+    # 'djElenor.auth',
+    'djElenor.plugins',
     'djElenor.account',
-    'djElenor.app',
-    'djElenor.cart',
+    'djElenor.permission',
+    'djElenor.discount',
+    'djElenor.giftcard',
+    'djElenor.product',
+    'djElenor.attribute',
     'djElenor.channel',
     'djElenor.checkout',
-    'djElenor.discount',
-    'djElenor.order',
-    'djElenor.payment',
-    'djElenor.product',
-    'djElenor.giftcard',
-    'djElenor.graphql',
     'djElenor.core',
-    'djElenor.page',
+    'djElenor.csv',
+    'djElenor.graphql',
+    'djElenor.menu',
+    'djElenor.order',
+    'djElenor.invoice',
     'djElenor.seo',
     'djElenor.shipping',
+    # 'djElenor.site',
+    'djElenor.page',
+    'djElenor.payment',
     'djElenor.tax',
-    'djElenor.attribute',
-    "djElenor.permission",
-    'djElenor.thumbnail',
     'djElenor.warehouse',
     'djElenor.webhook',
+    'djElenor.app',
+    'djElenor.thumbnail',
+    # 'djElenor.schedulers',
 
     # Third party
     'graphene_django',
@@ -97,10 +103,21 @@ WSGI_APPLICATION = 'djElenor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'elenor',
+        'USER': 'fanim',
+        'PASSWORD': '123',
+        'HOST': 'localhost',  # or your PostgreSQL server address
+        'PORT': '5432',  # default PostgreSQL port
     }
 }
 
@@ -160,7 +177,6 @@ GRAPHENE = {
 }
 
 AUTH_USER_MODEL = "account.User"
-
 
 DEFAULT_COUNTRY = os.environ.get("DEFAULT_COUNTRY", "US")
 DEFAULT_DECIMAL_PLACES = 3
