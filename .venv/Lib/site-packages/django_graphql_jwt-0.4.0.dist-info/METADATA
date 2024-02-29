@@ -1,0 +1,142 @@
+Metadata-Version: 2.1
+Name: django-graphql-jwt
+Version: 0.4.0
+Summary: JSON Web Token for Django GraphQL.
+Project-URL: homepage, https://github.com/flavors/django-graphql-jwt
+Project-URL: repository, https://github.com/flavors/django-graphql-jwt
+Project-URL: documentation, https://django-graphql-jwt.domake.io
+Project-URL: changelog, https://django-graphql-jwt.domake.io/changelog
+Author-email: Dani <dani@domake.io>
+License-Expression: MIT
+License-File: AUTHORS.rst
+License-File: LICENSE
+Keywords: django,graphql,jwt
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 2.0
+Classifier: Framework :: Django :: 2.1
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.0
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: HTTP Servers
+Classifier: Topic :: Security
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Requires-Dist: django>=2.0
+Requires-Dist: graphene-django>=2.0.0
+Requires-Dist: graphene>=2.1.5
+Requires-Dist: pyjwt<3,>=2
+Provides-Extra: doc
+Requires-Dist: sphinx; extra == 'doc'
+Provides-Extra: test
+Requires-Dist: black; extra == 'test'
+Requires-Dist: codecov; extra == 'test'
+Requires-Dist: cryptography; extra == 'test'
+Requires-Dist: flake8; extra == 'test'
+Requires-Dist: isort; extra == 'test'
+Requires-Dist: pytest; extra == 'test'
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: pytest-django; extra == 'test'
+Description-Content-Type: text/markdown
+
+<p align="center">
+  <a href="https://django-graphql-jwt.domake.io/"><img width="420px" src="https://django-graphql-jwt.domake.io/_static/logo.png" alt='Django GraphQL JWT'></a>
+</p>
+
+<p align="center">
+    JSON Web Token authentication for Django GraphQL.
+    <br>Fantastic <strong>documentation</strong> is available at <a href="https://django-graphql-jwt.domake.io">https://django-graphql-jwt.domake.io</a>.
+</p>
+<p align="center">
+    <a href="https://github.com/flavors/django-graphql-jwt/actions">
+        <img src="https://github.com/flavors/django-graphql-jwt/actions/workflows/test-suite.yml/badge.svg" alt="Test">
+    </a>
+    <a href="https://codecov.io/gh/flavors/django-graphql-jwt">
+        <img src="https://img.shields.io/codecov/c/github/flavors/django-graphql-jwt?color=%2334D058" alt="Coverage">
+    </a>
+    <a href="https://www.codacy.com/gh/flavors/django-graphql-jwt/dashboard">
+        <img src="https://app.codacy.com/project/badge/Grade/4f9fd439fbc74be88a215b9ed2abfcf9" alt="Codacy">
+    </a>
+    <a href="https://pypi.python.org/pypi/django-graphql-jwt">
+        <img src="https://img.shields.io/pypi/v/django-graphql-jwt.svg" alt="Package version">
+    </a>
+</p>
+
+## Installation
+
+Install last stable version from Pypi:
+
+```sh
+pip install django-graphql-jwt
+```
+
+Add `AuthenticationMiddleware` middleware to your *MIDDLEWARE* settings:
+
+
+```py
+MIDDLEWARE = [
+    # ...
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    # ...
+]
+```
+
+Add `JSONWebTokenMiddleware` middleware to your *GRAPHENE* settings:
+
+```py
+GRAPHENE = {
+    "SCHEMA": "mysite.myschema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+```
+
+Add `JSONWebTokenBackend` backend to your *AUTHENTICATION_BACKENDS*:
+
+```py
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+```
+
+## Schema
+
+Add *django-graphql-jwt* mutations to the root schema:
+
+```py
+import graphene
+import graphql_jwt
+
+
+class Mutation(graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+
+
+schema = graphene.Schema(mutation=Mutation)
+```
