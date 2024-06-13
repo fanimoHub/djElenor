@@ -22,3 +22,5 @@ upd:
 down:
 	docker-compose down
 
+downr:
+	docker-compose down -v

@@ -1,6 +1,23 @@
 version: '3.9'
 
 services:
+  postgres:
+    build:
+      context: docker/db
+      dockerfile: Dockerfile
+    restart: always
+    container_name: 'elenor_db'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=$NAME_DB
+      - POSTGRES_USER=$USER_DB
+      - POSTGRES_PASSWORD=$PASSWORD_DB
+    ports:
+      - "5432:5432"
+
   app:
     build:
       context: .
@@ -20,24 +37,6 @@ services:
       - .:/app
     depends_on:
       - postgres
-
-  postgres:
-    restart: always
-    image: postgres:16
-    container_name: 'elenor_db'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_DB=${NAME_DB}
-      - POSTGRES_USER=${USER_DB}
-      - POSTGRES_PASSWORD=${PASSWORD_DB}
-      - POSTGRES_EXTENSIONS=gin_trgm_ops
-    ports:
-      - "${POSTGRES_PORT:-5432}:5432"
-
-
 
   pgadmin:
     image: dpage/pgadmin4:latest
